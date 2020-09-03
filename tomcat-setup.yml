@@ -1,0 +1,19 @@
+  
+---
+- name: Tomcat deployment playbook
+  hosts: webservers       # Inventory hosts group / server to act on
+  become: yes               # If to escalate privilege
+  become_method: sudo       # Set become method
+#   remote_user: root         # Update username for remote server
+  tasks: 
+    - name: install tomcat
+      package: 
+        name: tomcat8
+        state: latest
+        update_cache: yes
+        
+    - name: start and Enable tomcat
+      service:
+        name: tomcat8
+        state: started
+        enabled: yes
